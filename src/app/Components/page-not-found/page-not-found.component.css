@@ -1,0 +1,36 @@
+.page-img-container{
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.page-img-body {
+    text-align: center;
+    padding: 10px;
+}
+.page-img-subtitle{
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--text-two);
+}
+.page-img-text{
+    max-width: 500px;
+    padding: 10px;
+}
+.page-btn {
+    border: #ccc;
+    padding: 10px 14px;
+   color: var(--bg-one);
+   border-radius: 5px;
+    background-color: var(--text-two);
+    transition: .3s ease-in-out;
+    box-shadow: 0px 8px 26.850000381469727px 0px rgba(0, 29, 109, 0.35);
+}
+.page-btn:hover {
+    background-color: var(--text-one);
+}
+.page-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
