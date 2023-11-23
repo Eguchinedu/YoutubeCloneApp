@@ -1,1 +1,16 @@
-<p>home works!</p>
+<div class="container">
+   <h1>All Videos</h1>
+
+   <div *ngIf="Posts">
+<div *ngFor="let post of Posts">
+<video width="400" controls autoplay muted>
+  <source src={{post.videoUrl}} type="video/mp4">
+  <source src={{post.videoUrl}} type="video/ogg">
+  Your browser does not support HTML video.
+</video>
+
+<h1>Title : {{post.postTitle}}</h1>
+<p>Likes: {{post.likes}} Likes</p>
+</div>
+</div>
+</div>

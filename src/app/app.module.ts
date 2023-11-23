@@ -11,12 +11,24 @@ import { PostComponent } from './Home/post/post.component';
 import { LoginComponent } from './Authentication/login/login.component';
 import { SignUpComponent } from './Authentication/sign-up/sign-up.component';
 import { ProfileComponent } from './Home/profile/profile.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [AppComponent, NavBarComponent, HomeComponent, PostComponent, LoginComponent, SignUpComponent, ProfileComponent],
+  declarations: [
+    AppComponent,
+    NavBarComponent,
+    HomeComponent,
+    PostComponent,
+    LoginComponent,
+    SignUpComponent,
+    ProfileComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    RouterModule, ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot(), // ToastrModule added
     BrowserAnimationsModule,

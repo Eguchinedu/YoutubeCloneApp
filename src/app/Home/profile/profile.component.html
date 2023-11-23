@@ -1,1 +1,44 @@
-<p>profile works!</p>
+<div class="container">
+    <div *ngIf="User">
+   <p>
+
+       Name : {{User?.firstName}} {{User?.lastName}}
+   </p> 
+   <p>
+
+       Email: {{User?.email}}
+   </p>
+   <p>
+
+       UserName: {{User?.userName}}
+   </p>
+
+   <div>
+    <h3>Upload Video</h3>
+    <form action="">
+         <div class="form-group">
+            <label for="title" class="input-label">Title: </label>
+            <input type="text" name="title" id="title" class="input-group">
+        </div>
+        <div class="form-group">
+            <label for="videoFile" class="input-label">Video Url: </label>
+            <input type="file" name="videoFile" accept="video/mp4,image/png,image/jpeg" />
+        </div>
+    </form>
+   </div>
+
+    <h1>Posts</h1>
+<div *ngFor="let post of User?.posts">
+
+
+<video width="400" controls autoplay muted>
+  <source src={{post.videoUrl}} type="video/mp4">
+  <source src={{post.videoUrl}} type="video/ogg">
+  Your browser does not support HTML video.
+</video>
+
+<h1>Title : {{post.postTitle}}</h1>
+<p>Likes: {{post.likes}} Likes</p>
+</div>
+    </div>
+</div>
