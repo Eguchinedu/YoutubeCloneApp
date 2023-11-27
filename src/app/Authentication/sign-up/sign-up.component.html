@@ -1,1 +1,42 @@
-<p>sign-up works!</p>
+<div class="container">
+    <div class="header">
+        <h1>Hey There, Please Register below</h1>
+    </div>
+    <form action=""  (ngSubmit)="onSubmit()" [formGroup]="signUpForm">
+        <div class="form-group">
+            <label for="firstName" class="input-label">FirstName: </label>
+            <input type="text" name="firstName" id="firstName" class="signup-field" formControlName="firstName">
+            <p class="alert alert-danger" *ngIf="signUpForm.controls['firstName'].dirty && signUpForm.hasError('required', 'firstName')">Firstname is Required</p>
+        </div>
+        <div class="form-group">
+            <label for="lastName" class="input-label">LastName: </label>
+            <input type="text" name="lastName" id="lastName" class="signup-field" formControlName="lastName">
+            <p class="alert alert-danger" *ngIf="signUpForm.controls['lastName'].dirty && signUpForm.hasError('required', 'lastName')">Lastname is Required</p>
+        </div>
+        <div class="form-group">
+            <label for="userName" class="input-label">Username</label>
+            <input type="text" name="userName" id="userName" class="signup-field" formControlName="userName">
+            <p class="alert alert-danger" *ngIf="signUpForm.controls['userName'].dirty && signUpForm.hasError('required', 'userName')">Password is Required</p>
+        </div>
+        <div class="form-group">
+            <label for="password" class="input-label">Password</label>
+            <input type="password" name="password" id="password" class="signup-field" formControlName="password">
+            <p class="alert alert-danger" *ngIf="signUpForm.controls['password'].dirty && signUpForm.hasError('required', 'password')">Password is Required</p>
+        </div>
+        <div class="form-group">
+            <label for="email" class="input-label">Email: </label>
+            <input type="email" name="email" id="email" class="signup-field" formControlName="email">
+            <p class="alert alert-danger" *ngIf="signUpForm.controls['email'].dirty && signUpForm.hasError('required', 'email')">Email is Required</p>
+            <p class="alert alert-danger" *ngIf=" signUpForm.hasError('email','email')">Invalid email Address</p>
+        </div>  
+
+        <div class="signup-button">
+            <button class="signup-btn" [disabled]="!signUpForm.valid || isLoading">
+                Sign Up
+            </button>
+        </div>
+    </form>
+       <p>Got an Account? <a aria-current="page" 
+                 routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['/login']" >Login</a></p>
+</div>

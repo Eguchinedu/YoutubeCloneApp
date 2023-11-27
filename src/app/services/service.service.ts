@@ -15,6 +15,11 @@ export class ServiceService {
       .post<any>(environment.baseUrl + 'Auth/login', data)
       .pipe(catchError(this.handleError));
   }
+  signUp(data: any): Observable<any> {
+    return this.http
+      .post<any>(environment.baseUrl + 'Auth/Register', data)
+      .pipe(catchError(this.handleError));
+  }
 
   //Users
   getUsers(): Observable<any> {
