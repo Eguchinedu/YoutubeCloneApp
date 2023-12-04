@@ -1,0 +1,10 @@
+.add-likes{
+    display: flex;
+    justify-content: space-around;
+    width: 150px;
+}
+
+
+.bi{
+    cursor: pointer !important;
+}

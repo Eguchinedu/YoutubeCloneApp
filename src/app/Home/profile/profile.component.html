@@ -6,33 +6,40 @@
 
     <div>
       <h3>Upload Video</h3>
-      <form action="">
+      <form action="" (ngSubmit)="uploadVideo()" [formGroup]="videoForm">
         <div class="form-group">
-          <label for="title" class="input-label">Title: </label>
-          <input type="text" name="title" id="title" class="input-group" />
+          <label for="postTitle" class="input-label">Title: </label>
+          <input type="text" name="postTitle" id="postTitle" class="input-group" formControlName="postTitle" />
         </div>
         <div class="form-group">
-          <label for="videoFile" class="input-label">Video Url: </label>
+          <label for="videoUrl" class="input-label">Video Url: </label>
           <input
             type="file"
-            name="videoFile"
-            accept="video/mp4,image/png,image/jpeg"
+            name="videoUrl"
+            accept="video/*"
+            formControlName="videoUrl"
           />
         </div>
+        <button >Upload Video</button>
       </form>
     </div>
 
     <h1>Posts</h1>
     <ng-container *ngIf="User?.posts.length > 0"
       ><div *ngFor="let post of User?.posts">
+        <!-- <iframe width="560" height="315" src="C:\\fakepath\\Apex Legends 2023.07.03 - 12.28.49.02.mp4" frameborder="4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
         <video width="400" controls>
-          <source src="{{ post.videoUrl }}" type="video/mp4" />
-          <source src="{{ post.videoUrl }}" type="video/ogg" />
+          <source src="C:\\fakepath\\Apex Legends 2023.07.03 - 12.28.49.02.mp4" type="video/mp4" />
+          <source src="C:\\fakepath\\Apex Legends 2023.07.03 - 12.28.49.02.mp4" type="video/ogg" />
           Your browser does not support HTML video.
         </video>
 
-        <h1>Title : {{ post.postTitle }}</h1>
-        <p>Likes: {{ post.likes }} Likes</p>
+        <h1 (click)="viewPost(post.userId, post.postId)">Title : {{ post.postTitle }}</h1>
+         <div class="add-likes">
+            <i class="bi bi-hand-thumbs-up-fill" (click)="addLikes( post.postId)"></i>
+            <p>{{post.likes}}</p>
+            <i class="bi bi-hand-thumbs-down-fill"></i>
+        </div>
       </div>
       </ng-container
     >

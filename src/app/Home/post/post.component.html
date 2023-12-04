@@ -1,1 +1,23 @@
-<p>post works!</p>
+<div class="container">
+    <div *ngIf="currentPost">
+        <h1>{{currentPost?.postTitle}}</h1>
+        <p>Uplaoded by - {{currentPost.user.userName}}</p>
+        <video width="1000" controls autoplay muted>
+          <source src={{currentPost.videoUrl}} type="video/mp4">
+          <source src={{currentPost.videoUrl}} type="video/ogg">
+          Your browser does not support HTML video.
+        </video>
+        <p>Likes: {{currentPost.likes}}</p>
+
+        <h3>Comments</h3>
+        <div *ngFor="let comment of currentPost.comments">
+        <div class="comment-content">
+            {{comment.comment}} - {{comment.user.userName}}
+        </div>
+        </div>
+        <form action="" (ngSubmit)="postComment()" [formGroup]="commentForm">
+            <input type="text" name="comment" id="comment" class="comment-box" formControlName="comment" required>
+            <button>Post</button>
+        </form>
+    </div>
+</div>

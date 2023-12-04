@@ -21,7 +21,7 @@ const routes: Routes = [
     component: ProfileComponent,
   },
   {
-    path: 'home/:postId',
+    path: ':userId/:postId',
     component: PostComponent,
   },
   {

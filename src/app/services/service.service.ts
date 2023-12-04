@@ -49,6 +49,40 @@ export class ServiceService {
     );
   }
 
+  getPostofUser(user_id: string, post_id: string): Observable<any> {
+    return this.http
+      .get(environment.baseUrl + `User/post/${user_id}/${post_id}`)
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
+  addLike(post_id: string, data: any): Observable<any> {
+
+    return this.http
+      .post(environment.baseUrl + `User/post/${post_id}/likes`, data)
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
+  addComment(user_id: string, post_id: string, data: any): Observable<any> {
+    console.log(data);
+    
+    return this.http
+      .post(environment.baseUrl + `User/post/${user_id}/${post_id}/Add-comment`, data)
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
   //HandleErrors
 
   private handleError(error: HttpErrorResponse): Observable<never> {

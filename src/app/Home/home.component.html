@@ -3,14 +3,21 @@
 
    <div *ngIf="Posts">
 <div *ngFor="let post of Posts">
-<video width="400" controls autoplay muted>
-  <source src={{post.videoUrl}} type="video/mp4">
-  <source src={{post.videoUrl}} type="video/ogg">
-  Your browser does not support HTML video.
-</video>
-
-<h1>Title : {{post.postTitle}}</h1>
-<p>Likes: {{post.likes}} Likes</p>
+    <div class="post-content" >
+        <video width="400" controls autoplay muted>
+          <source src={{post.videoUrl}} type="video/mp4">
+          <source src={{post.videoUrl}} type="video/ogg">
+          Your browser does not support HTML video.
+        </video>
+        
+        <h1 (click)="viewPost(post.userId, post.postId)">Title : {{post.postTitle}}</h1>
+        <div class="add-likes">
+            <i class="bi bi-hand-thumbs-up-fill" (click)="addLikes( post.postId)"></i>
+            <p>{{post.likes}}</p>
+            <i class="bi bi-hand-thumbs-down-fill"></i>
+        </div>
+        
+    </div>
 </div>
 </div>
 </div>

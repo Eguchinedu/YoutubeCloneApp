@@ -13,7 +13,6 @@ import { SignUpComponent } from './Authentication/sign-up/sign-up.component';
 import { ProfileComponent } from './Home/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ViewPostComponent } from './Home/view-post/view-post.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import { ViewPostComponent } from './Home/view-post/view-post.component';
     LoginComponent,
     SignUpComponent,
     ProfileComponent,
-    ViewPostComponent,
   ],
   imports: [
     BrowserModule,
