@@ -11,7 +11,7 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
+isLoading: boolean = false;
   loginForm: FormGroup;
   user!: any;
 
@@ -23,26 +23,35 @@ this.loginForm = new FormGroup({
   }
 
   onSubmit(){
-    if(this.loginForm.valid){
-      
-      this._service.login(this.loginForm.getRawValue()).subscribe((data) => {
-        console.log(data);
- this.user = this._storage.getUserInfo(data.token);
-        
-        if(data.success === true) {
-this._toastr.success('welcome user');
-this._storage.storeToken(data.token);
-this._storage.setUserName(this.user.Username);
-this._storage.setFirstName(this.user.Firstname);
-this._storage.setUserId(this.user.Id);
-this._toastr.success('Logged in successfully', 'Success!');
-this.router.navigate(['/home']);
-        }
-        
-      });
-    } else {
-      this._toastr.error('Something went wrong', 'Error!');
-    }
-  }
+if (this.loginForm.valid) {
+  this.isLoading = true;
+  this._service.login(this.loginForm.getRawValue()).subscribe(
+    (data) => {
+      this.user = this._storage.getUserInfo(data.token);
 
+      if (data.success === true) {
+        this._toastr.success('Welcome user');
+        this._storage.storeToken(data.token);
+        this._storage.setUserName(this.user.Username);
+        this._storage.setFirstName(this.user.Firstname);
+        this._storage.setUserId(this.user.Id);
+        this._toastr.success('Logged in successfully', 'Success!');
+        this.router.navigate(['/home']);
+      }
+    },
+    (error) => {
+      console.log(error);
+    
+      this._toastr.error(error.errorReason, 'Error!');
+      this.isLoading = false;
+    }
+  );
+} else {
+  this._toastr.error('Please fill all required fields', 'Error!');
+      this.isLoading = false;
+
+
+}
+
+}
 }

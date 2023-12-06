@@ -40,10 +40,17 @@ export class PostComponent implements OnInit {
     let user_id = this.route.snapshot.params['userId'];
     let post_id = this.route.snapshot.params['postId'];
 
-    this._service.getPostofUser(user_id, post_id).subscribe((result) => {
-      this.currentPost = result;
-      console.log(result);
-    });
+    this._service.getPostofUser(user_id, post_id).subscribe(
+      (result) => {
+        this.currentPost = result;
+        console.log(result);
+      },
+      (error) => {
+        console.log(error);
+
+        this._toastr.error(error.errorReason, 'Error!');
+      }
+    );
   }
   refreshPage() {
     const currentUrl = this._router.url;
@@ -53,19 +60,28 @@ export class PostComponent implements OnInit {
   }
 
   postComment() {
-    if (this.commentForm.valid) {
-      
-      let user_id = this.route.snapshot.params['userId'];
-      let post_id = this.route.snapshot.params['postId'];
+if (this.commentForm.valid) {
+  let user_id = this.route.snapshot.params['userId'];
+  let post_id = this.route.snapshot.params['postId'];
 
-      this._service
-        .addComment(user_id, post_id, this.commentForm.getRawValue())
-        .subscribe((result) => {
-          this.commentForm.controls['comment'].setValue(null);
-          this.refreshPage();
-          console.log(this._toastr.success('Comment added successfully'));
-          result
-        });
-    }
+  this._service
+    .addComment(user_id, post_id, this.commentForm.getRawValue())
+    .subscribe(
+      (result) => {
+        this.commentForm.controls['comment'].setValue(null);
+        this.refreshPage();
+        console.log(this._toastr.success('Comment added successfully'));
+        result;
+      },
+      (error) => {
+        // Handle errors from the addComment API call
+       console.log(error);
+
+       this._toastr.error(error.errorReason, 'Error!');
+      }
+    );
+} else {
+  this._toastr.error('Invalid comment', 'Error!');
+}
   }
 }

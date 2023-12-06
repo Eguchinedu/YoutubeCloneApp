@@ -27,25 +27,43 @@ export class HomeComponent implements OnInit {
   }
 
   getPosts() {
-    this._service.getAllPosts().subscribe((res) => {
-      this.Posts = res;
-      console.log(res);
-    });
+   this._service.getAllPosts().subscribe(
+     (res) => {
+       this.Posts = res;
+       console.log(res);
+     },
+     (error) => {
+          console.log(error);
+
+          this._toastr.error(error.errorReason, 'Error!');
+     }
+   );
   }
   viewPost(user_id: string, post_id: string) {
     this.router.navigate([user_id, post_id]);
   }
 
   addLikes(post_id: string) {
-    if (this.LoggedUserId == '') {
-      this._toastr.error('Please log in first');
-    }
-    let data = {
-      postId: post_id,
-      userId: Number(this.LoggedUserId),
-    };
-    this._service.addLike(post_id, data).subscribe((res) => {
+if (this.LoggedUserId == '') {
+  this._toastr.error('Please log in first');
+} else {
+  let data = {
+    postId: post_id,
+    userId: Number(this.LoggedUserId),
+  };
+
+  this._service.addLike(post_id, data).subscribe(
+    (res) => {
       res;
-    });
+      this._toastr.success('Liked!');
+    },
+    (error) => {
+    
+      console.log(error);
+
+      this._toastr.error(error.errorReason, 'Error!');
+    }
+  );
+}
   }
 }

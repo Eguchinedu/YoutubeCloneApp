@@ -11,14 +11,24 @@ export class ServiceService {
 
   //Authentication
   login(data: any): Observable<any> {
-    return this.http
-      .post<any>(environment.baseUrl + 'Auth/login', data)
-      .pipe(catchError(this.handleError));
+    return this.http.post<any>(environment.baseUrl + 'Auth/login', data).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
   }
   signUp(data: any): Observable<any> {
     return this.http
       .post<any>(environment.baseUrl + 'Auth/Register', data)
-      .pipe(catchError(this.handleError));
+      .pipe(
+        map((response) => {
+         
+          
+          return response;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   //Users
@@ -48,6 +58,22 @@ export class ServiceService {
       catchError(this.handleError)
     );
   }
+  uploadPost(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + 'User/post', data).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+  cloudUpload(data:any): Observable<any> {
+    return this.http.post(environment.uploadUrl, data).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
 
   getPostofUser(user_id: string, post_id: string): Observable<any> {
     return this.http
@@ -60,7 +86,6 @@ export class ServiceService {
       );
   }
   addLike(post_id: string, data: any): Observable<any> {
-
     return this.http
       .post(environment.baseUrl + `User/post/${post_id}/likes`, data)
       .pipe(
@@ -72,11 +97,16 @@ export class ServiceService {
   }
   addComment(user_id: string, post_id: string, data: any): Observable<any> {
     console.log(data);
-    
+
     return this.http
-      .post(environment.baseUrl + `User/post/${user_id}/${post_id}/Add-comment`, data)
+      .post(
+        environment.baseUrl + `User/post/${user_id}/${post_id}/Add-comment`,
+        data
+      )
       .pipe(
         map((response) => {
+          
+          
           return response;
         }),
         catchError(this.handleError)
@@ -88,15 +118,23 @@ export class ServiceService {
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An error occurred';
 
+
+
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      errorMessage = `Error: ${error.error.message}`;
+     
+      errorMessage = `Error: ${error.error}`;
     } else {
-      // Server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      
+      errorMessage = error.error
+      
     }
 
-    console.error(errorMessage);
-    return throwError(errorMessage);
+ const errorReason = error.error ? error.error.errorReason : 'Unknown error';
+
+ 
+ console.error(`Error Reason: ${errorReason}`);
+
+ return throwError(errorMessage);
+    
   }
 }

@@ -27,24 +27,30 @@ export class SignUpComponent {
   }
 
   onSubmit() {
-    if (this.signUpForm.valid) {
-      this.isLoading = true;
-      this._service
-        .signUp(this.signUpForm.getRawValue())
-        .subscribe((result) => {
-          console.log(result);
-          
-          if (result.success == true) {
-            this._toastr.success('Account Created Successfully!', 'Success!');
-            this.router.navigate(['/login']);
-          } else {
-            this._toastr.error(result.errorReason, 'Error!');
-            this.isLoading = false;
-          }
-        });
-    } else {
-      this._toastr.error('Invalid credentials', 'Error!');
+if (this.signUpForm.valid) {
+  this.isLoading = true;
+  this._service.signUp(this.signUpForm.getRawValue()).subscribe(
+    (result) => {
+      console.log(result);
+
+      if (result.success === true) {
+        this._toastr.success('Account Created Successfully!', 'Success!');
+        this.router.navigate(['/login']);
+      } else {
+        this._toastr.error(result.errorReason, 'Error!');
+        this.isLoading = false;
+      }
+    },
+    (error) => {
+      console.log(error);
+    
+      this._toastr.error(error.errorReason, 'Error!');
       this.isLoading = false;
     }
-  }
+  );
+} else {
+  this._toastr.error('Invalid credentials', 'Error!');
+  this.isLoading = false;
+}
+}
 }

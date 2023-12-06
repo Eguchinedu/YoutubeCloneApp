@@ -9,18 +9,44 @@
       <form action="" (ngSubmit)="uploadVideo()" [formGroup]="videoForm">
         <div class="form-group">
           <label for="postTitle" class="input-label">Title: </label>
-          <input type="text" name="postTitle" id="postTitle" class="input-group" formControlName="postTitle" />
+          <input
+            type="text"
+            name="postTitle"
+            id="postTitle"
+            class="input-group"
+            formControlName="postTitle"
+          />
         </div>
         <div class="form-group">
-          <label for="videoUrl" class="input-label">Video Url: </label>
+          <!-- <label for="videoUrl" class="input-label">Video Url: </label>
           <input
             type="file"
             name="videoUrl"
             accept="video/*"
-            formControlName="videoUrl"
-          />
+            (change)="onFileSelected($event)"
+          /> -->
+          <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>Add Video!</ngx-dropzone-label>
+            <ngx-dropzone-preview
+              *ngFor="let f of files"
+              [removable]="true"
+              (removed)="onRemove(f)"
+            >
+              <ngx-dropzone-label
+                >{{ f.name }} ({{ f.type }})</ngx-dropzone-label
+              >
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
+          <ngx-dropzone-video-preview
+            ngProjectAs="ngx-dropzone-preview"
+            *ngFor="let f of files"
+            [file]="f"
+          >
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+          </ngx-dropzone-video-preview>
         </div>
-        <button >Upload Video</button>
+        <button [disabled]="isLoading">Upload Video</button>
+        <p *ngIf="isLoading">Uploading...</p>
       </form>
     </div>
 
@@ -28,21 +54,25 @@
     <ng-container *ngIf="User?.posts.length > 0"
       ><div *ngFor="let post of User?.posts">
         <!-- <iframe width="560" height="315" src="C:\\fakepath\\Apex Legends 2023.07.03 - 12.28.49.02.mp4" frameborder="4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
-        <video width="400" controls>
-          <source src="C:\\fakepath\\Apex Legends 2023.07.03 - 12.28.49.02.mp4" type="video/mp4" />
-          <source src="C:\\fakepath\\Apex Legends 2023.07.03 - 12.28.49.02.mp4" type="video/ogg" />
+        <video width="400" controls  muted>
+          <source src="{{ post.videoUrl }}" type="video/mp4" />
+          <source src="{{ post.videoUrl }}" type="video/ogg" />
           Your browser does not support HTML video.
         </video>
 
-        <h1 (click)="viewPost(post.userId, post.postId)">Title : {{ post.postTitle }}</h1>
-         <div class="add-likes">
-            <i class="bi bi-hand-thumbs-up-fill" (click)="addLikes( post.postId)"></i>
-            <p>{{post.likes}}</p>
-            <i class="bi bi-hand-thumbs-down-fill"></i>
+        <h1 (click)="viewPost(post.userId, post.postId)">
+          Title : {{ post.postTitle }}
+        </h1>
+        <div class="add-likes">
+          <i
+            class="bi bi-hand-thumbs-up-fill"
+            (click)="addLikes(post.postId)"
+          ></i>
+          <p>{{ post.likes }}</p>
+          <i class="bi bi-hand-thumbs-down-fill"></i>
         </div>
       </div>
-      </ng-container
-    >
+    </ng-container>
     <ng-container *ngIf="User?.posts.length === 0">
       <p>You Currently have no posts</p>
     </ng-container>

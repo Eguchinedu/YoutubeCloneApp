@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Cloudinary } from '@cloudinary/url-gen';
+
 
 @Component({
   selector: 'app-root',
@@ -13,5 +15,6 @@ export class AppComponent {
 
   ngOnInit() {
     this.toastr.success(`Welcome to ${this.title}`);
+    const cld = new Cloudinary({ cloud: { cloudName: 'dtgaovjxc' } });
   }
 }

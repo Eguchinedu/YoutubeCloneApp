@@ -15,7 +15,7 @@
     </div>
 
     <div class="login-button">
-        <button class="log-btn" [disabled]="!loginForm.valid">Login</button>
+        <button class="log-btn" [disabled]="!loginForm.valid || isLoading">Login</button>
     </div>
   
 </form>

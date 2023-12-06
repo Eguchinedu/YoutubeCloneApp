@@ -13,6 +13,9 @@ import { SignUpComponent } from './Authentication/sign-up/sign-up.component';
 import { ProfileComponent } from './Home/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import {CloudinaryModule} from '@cloudinary/ng';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +30,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     BrowserModule,
     AppRoutingModule,
+     CloudinaryModule,
+     NgxDropzoneModule,
     FormsModule,
     RouterModule, ReactiveFormsModule,
     HttpClientModule,
