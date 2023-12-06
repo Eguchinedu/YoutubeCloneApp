@@ -1,3 +1,4 @@
+<app-spinner></app-spinner>
 <div class="container">
     <div *ngIf="currentPost">
         <h1>{{currentPost?.postTitle}}</h1>
@@ -7,7 +8,14 @@
           <source src={{currentPost.videoUrl}} type="video/ogg">
           Your browser does not support HTML video.
         </video>
-        <p>Likes: {{currentPost.likes}}</p>
+        <div class="add-likes">
+          <i
+            class="bi bi-hand-thumbs-up-fill"
+            (click)="addLikes(currentPost.postId)"
+          ></i>
+          <p>{{ currentPost.likes }}</p>
+          <i class="bi bi-hand-thumbs-down-fill"></i>
+        </div>
 
         <h3>Comments</h3>
         <div *ngFor="let comment of currentPost.comments">

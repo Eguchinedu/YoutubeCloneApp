@@ -53,7 +53,6 @@
     <h1>Posts</h1>
     <ng-container *ngIf="User?.posts.length > 0"
       ><div *ngFor="let post of User?.posts">
-        <!-- <iframe width="560" height="315" src="C:\\fakepath\\Apex Legends 2023.07.03 - 12.28.49.02.mp4" frameborder="4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
         <video width="400" controls  muted>
           <source src="{{ post.videoUrl }}" type="video/mp4" />
           <source src="{{ post.videoUrl }}" type="video/ogg" />

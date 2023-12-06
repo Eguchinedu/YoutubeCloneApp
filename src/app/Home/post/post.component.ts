@@ -28,7 +28,9 @@ export class PostComponent implements OnInit {
       postId: new FormControl(Number(this.route.snapshot.params['postId']), [
         Validators.required,
       ]),
-      userId: new FormControl(Number(this._storage.getUserId()), [Validators.required]),
+      userId: new FormControl(Number(this._storage.getUserId()), [
+        Validators.required,
+      ]),
     });
   }
 
@@ -52,36 +54,55 @@ export class PostComponent implements OnInit {
       }
     );
   }
-  refreshPage() {
-    const currentUrl = this._router.url;
-    this._router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this._router.navigate([currentUrl]);
-    });
+  addLikes(post_id: string) {
+    if (!this._storage.isLoggedIn()) {
+      this._toastr.error('Please log in first to like or comment');
+      this._router.navigate(['/login']);
+      return;
+    } else {
+      let data = {
+        postId: post_id,
+        userId: Number(this.user_id),
+      };
+
+      this._service.addLike(post_id, data).subscribe(
+        (res) => {
+          res;
+          this._toastr.success('Liked!');
+          location.reload();
+          this.ngOnInit();
+        },
+        (error) => {
+          console.log(error);
+
+          this._toastr.error(error.errorReason, 'Error!');
+        }
+      );
+    }
   }
 
   postComment() {
-if (this.commentForm.valid) {
-  let user_id = this.route.snapshot.params['userId'];
-  let post_id = this.route.snapshot.params['postId'];
+    if (this.commentForm.valid) {
+      let user_id = this.route.snapshot.params['userId'];
+      let post_id = this.route.snapshot.params['postId'];
 
-  this._service
-    .addComment(user_id, post_id, this.commentForm.getRawValue())
-    .subscribe(
-      (result) => {
-        this.commentForm.controls['comment'].setValue(null);
-        this.refreshPage();
-        console.log(this._toastr.success('Comment added successfully'));
-        result;
-      },
-      (error) => {
-        // Handle errors from the addComment API call
-       console.log(error);
+      this._service
+        .addComment(user_id, post_id, this.commentForm.getRawValue())
+        .subscribe(
+          (result) => {
+            this.commentForm.controls['comment'].setValue(null);
+            location.reload(); // refresh the page
+            this.ngOnInit();
+            this._toastr.success('Comment added successfully');
+          },
+          (error) => {
+            console.log(error);
 
-       this._toastr.error(error.errorReason, 'Error!');
-      }
-    );
-} else {
-  this._toastr.error('Invalid comment', 'Error!');
-}
+            this._toastr.error(error.errorReason, 'Error!');
+          }
+        );
+    } else {
+      this._toastr.error('Invalid comment', 'Error!');
+    }
   }
 }

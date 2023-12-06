@@ -53,8 +53,10 @@ export class ProfileComponent implements OnInit {
     this.router.navigate([user_id, post_id]);
   }
   addLikes(post_id: string) {
-    if (this.id == '') {
-      this._toastr.error('Please log in first');
+    if (!this._storage.isLoggedIn()) {
+      this._toastr.error('Please log in first to like or comment');
+      this.router.navigate(['/login']);
+      return;
     } else {
       let data = {
         postId: post_id,
@@ -65,6 +67,8 @@ export class ProfileComponent implements OnInit {
         (res) => {
           res;
           this._toastr.success('Liked!');
+          location.reload();
+          this.ngOnInit();
         },
         (error) => {
           console.log(error);
@@ -113,6 +117,7 @@ export class ProfileComponent implements OnInit {
               .subscribe((res) => {
                 res;
                 this._toastr.success('Video Uploaded Successfully!');
+                location.reload();
                 this.isLoading = false;
               });
           }
