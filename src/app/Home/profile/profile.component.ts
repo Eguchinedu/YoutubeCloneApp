@@ -14,6 +14,7 @@ import { Cloudinary } from '@cloudinary/url-gen';
 export class ProfileComponent implements OnInit {
   User!: any;
   id!: string;
+  userName!: string;
   videoForm!: FormGroup;
   selectedFile!: File | null;
   isLoading: boolean = false;
@@ -27,6 +28,7 @@ export class ProfileComponent implements OnInit {
     private _toastr: ToastrService
   ) {
     this.id = this._storage.getUserId();
+    this.userName = this._storage.getUserName();
     this.videoForm = new FormGroup({
       videoUrl: new FormControl(this.selectedFile, [Validators.required]),
       postTitle: new FormControl(null, [Validators.required]),

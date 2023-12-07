@@ -2,7 +2,8 @@
 <div class="container">
     <div *ngIf="currentPost">
         <h1>{{currentPost?.postTitle}}</h1>
-        <p>Uplaoded by - {{currentPost.user.userName}}</p>
+        <p *ngIf="currentPost.user.userName != userName">Uploaded by - <span class="navigate" (click)="viewProfile(currentPost.user.userId)">{{currentPost.user.userName}}</span>  </p>
+        <p *ngIf="currentPost.user.userName === userName">Uploaded by - You </p>
         <video width="1000" controls autoplay muted>
           <source src={{currentPost.videoUrl}} type="video/mp4">
           <source src={{currentPost.videoUrl}} type="video/ogg">

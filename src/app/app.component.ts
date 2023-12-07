@@ -14,7 +14,6 @@ export class AppComponent {
   constructor(private toastr: ToastrService) {}
 
   ngOnInit() {
-    this.toastr.success(`Welcome to ${this.title}`);
     const cld = new Cloudinary({ cloud: { cloudName: 'dtgaovjxc' } });
   }
 }

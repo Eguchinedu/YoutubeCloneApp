@@ -18,6 +18,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { SpinnerComponent } from './Components/spinner/spinner.component';
 import { LoadingInterceptor } from './Interceptor/loading.interceptor';
 import { TokenInterceptor } from './Interceptor/token.interceptor';
+import { OtherProfileComponent } from './home/other-profile/other-profile.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { TokenInterceptor } from './Interceptor/token.interceptor';
     SignUpComponent,
     ProfileComponent,
     SpinnerComponent,
+    OtherProfileComponent,
   ],
   imports: [
     BrowserModule,

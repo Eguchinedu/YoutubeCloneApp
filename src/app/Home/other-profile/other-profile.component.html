@@ -1,0 +1,35 @@
+<div class="container">
+    <div *ngIf="User">
+        <h1>{{User?.userName}}'s profile</h1>
+    <p>Name : {{ User?.firstName }} {{ User?.lastName }}</p>
+    <p>Email: {{ User?.email }}</p>
+    <p>UserName: {{ User?.userName }}</p>
+
+  
+    <h1>Posts</h1>
+    <ng-container *ngIf="User?.posts.length > 0"
+      ><div *ngFor="let post of User?.posts">
+        <video width="400" controls  muted>
+          <source src="{{ post.videoUrl }}" type="video/mp4" />
+          <source src="{{ post.videoUrl }}" type="video/ogg" />
+          Your browser does not support HTML video.
+        </video>
+
+        <h1 (click)="viewPost(post.userId, post.postId)">
+          Title : {{ post.postTitle }}
+        </h1>
+        <div class="add-likes">
+          <i
+            class="bi bi-hand-thumbs-up-fill"
+            (click)="addLikes(post.postId)"
+          ></i>
+          <p>{{ post.likes }}</p>
+          <i class="bi bi-hand-thumbs-down-fill"></i>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="User?.posts.length === 0">
+      <p>This User Has no posts</p>
+    </ng-container>
+  </div>
+</div>

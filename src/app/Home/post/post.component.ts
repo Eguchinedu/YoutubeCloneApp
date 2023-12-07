@@ -12,6 +12,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class PostComponent implements OnInit {
   user_id!: string;
+  userName!: string;
   currentPost!: any;
   userCommenter: any[] = [];
   commentForm!: FormGroup;
@@ -23,6 +24,7 @@ export class PostComponent implements OnInit {
     private _router: Router
   ) {
     this.user_id = this._storage.getUserId();
+    this.userName = this._storage.getUserName();
     this.commentForm = new FormGroup({
       comment: new FormControl(null, [Validators.required]),
       postId: new FormControl(Number(this.route.snapshot.params['postId']), [
@@ -38,6 +40,11 @@ export class PostComponent implements OnInit {
     this.getPostofUser();
   }
 
+  viewProfile(other_id: string): void {
+    let user_id = this.route.snapshot.params['userId'];
+    let post_id = this.route.snapshot.params['postId'];
+    this._router.navigate([user_id, post_id, other_id], );
+  }
   getPostofUser() {
     let user_id = this.route.snapshot.params['userId'];
     let post_id = this.route.snapshot.params['postId'];

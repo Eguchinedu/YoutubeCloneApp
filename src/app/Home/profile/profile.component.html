@@ -18,13 +18,6 @@
           />
         </div>
         <div class="form-group">
-          <!-- <label for="videoUrl" class="input-label">Video Url: </label>
-          <input
-            type="file"
-            name="videoUrl"
-            accept="video/*"
-            (change)="onFileSelected($event)"
-          /> -->
           <ngx-dropzone (change)="onSelect($event)">
             <ngx-dropzone-label>Add Video!</ngx-dropzone-label>
             <ngx-dropzone-preview

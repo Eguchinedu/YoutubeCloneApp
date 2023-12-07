@@ -7,8 +7,16 @@ import { SignUpComponent } from './Authentication/sign-up/sign-up.component';
 import { PostComponent } from './Home/post/post.component';
 import { ProfileComponent } from './Home/profile/profile.component';
 import { AuthGuard} from './Guard/auth.guard';
+import { OtherProfileComponent } from './home/other-profile/other-profile.component';
+
 
 const routes: Routes = [
+  {
+     
+    path: ':userId/:postId/:otherId',
+    component: OtherProfileComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'sign-up',
     component: SignUpComponent,
